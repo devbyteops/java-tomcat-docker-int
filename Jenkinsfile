@@ -20,5 +20,23 @@ pipeline {
                 sh "docker build . -t tomcatsamplewebapp:${env.BUILD_ID}"
             }
         }
+
+        stage('Login to Docker'){
+            steps {
+                sh "docker login -u giitcodes -p ${dockerhub}"
+            }
+        }
+
+        stage('Push Image'){
+            steps {
+                sh "docker push giitcodes/java-tomcat:${env.BUILD_ID}"
+            }
+        }
+    }
+
+    post {
+        always {
+            sh "docker logout"
+        }
     }
 }
