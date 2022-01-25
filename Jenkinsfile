@@ -18,13 +18,14 @@ pipeline {
                 sh "pwd"
                 sh "ls -a"
                 sh "docker build . -t tomcatsamplewebapp:${env.BUILD_ID}"
+                sh "docker tag tomcatsamplewebapp giitcodes/tomcatsamplewebapp:${env.BUILD_ID}"
             }
         }
 
         stage('Login to Docker'){
             steps {
                 withDockerRegistry([credentialsId: "dockerhub", url: ""]) {
-                sh "docker push tomcatsamplewebapp:${env.BUILD_ID}"
+                sh "docker push giitcodes/tomcatsamplewebapp:${env.BUILD_ID}"
                 }
             }
         }
