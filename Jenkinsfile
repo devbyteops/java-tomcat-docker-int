@@ -24,7 +24,7 @@ pipeline {
         stage('Login to Docker'){
             steps {
                 withDockerRegistry([credentialsId: "dockerhub", url: ""]) {
-                sh "docker push giitcodes/tomcatsamplewebapp:${env.BUILD_ID}"
+                sh "docker push tomcatsamplewebapp:${env.BUILD_ID}"
                 }
             }
         }
