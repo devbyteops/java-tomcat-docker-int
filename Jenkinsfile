@@ -23,13 +23,10 @@ pipeline {
 
         stage('Login to Docker'){
             steps {
+                withDockerRegistry([credentialsID: "dockerhub", url: ""]) {
                 sh "docker login -u giitcodes -p ${dockerhub}"
-            }
-        }
-
-        stage('Push Image'){
-            steps {
-                sh "docker push giitcodes/java-tomcat:${env.BUILD_ID}"
+                sh "docker push giitcodes/tomcatsamplewebapp:${env.BUILD_ID}"
+                }
             }
         }
     }
